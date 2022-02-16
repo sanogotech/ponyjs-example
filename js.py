@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function, division
-from pony.py23compat import int_types, basestring, imap, iteritems
+from pony.py23compat import int_types
+#from pony.py23compat import int_types, basestring, imap, iteritems
 
 import json
 from operator import attrgetter
@@ -39,7 +40,8 @@ def get_schema_dict(db):
                 d['reverse'] = attr.reverse.name
             if attr.lazy: d['lazy'] = True
             if attr.nullable: d['nullable'] = True
-            if attr.default and issubclass(type(attr.default), (int_types, basestring)):
+            #if attr.default and issubclass(type(attr.default), (int_types, basestring)):
+            if attr.default and issubclass(type(attr.default), (int_types,str)):
                 d['defaultValue'] = attr.default
             attrs.append(d)
         d = dict(name=entity.__name__, newAttrs=attrs, pkAttrs=[ attr.name for attr in entity._pk_attrs_ ])
